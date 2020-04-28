@@ -114,15 +114,15 @@ class Items:
       self.y = 0
       # self.position = 0
       self.my_maze = content
-      self.x_rand = 0
-      self.y_rand = 0
+      self.case_x = 0
+      self.case_y = 0
 
     def generateItems(self):
-      while self.my_maze[self.y][self.x] != 'm':
-            self.x_rand = random.randint(0, 14)
-            self.y_rand = random.randint(0, 14)
-      self.x = self.x_rand * SPRITE_SIZE
-      self.y = self.y_rand * SPRITE_SIZE
+      while self.my_maze[self.case_y][self.case_x] != 'm':
+            self.case_x = random.randint(0, 14)
+            self.case_y = random.randint(0, 14)
+      self.x = self.case_x * SPRITE_SIZE
+      self.y = self.case_y * SPRITE_SIZE
 
 
 # PLACER LES OBJETS DE FACON FIXE D'ABORD ET CHANGER / COMPLEXIFIER LES FONCTIONS ENSUITE

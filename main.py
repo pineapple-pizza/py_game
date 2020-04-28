@@ -7,12 +7,12 @@ def displayItems(my_maze):
     ITEM_2 = Items(my_maze)
     ITEM_2.generateItems()
 
-    while ITEM_1.y_rand == ITEM_2.y_rand and ITEM_1.x_rand == ITEM_2.x_rand:
+    while ITEM_1.case_y == ITEM_2.case_y and ITEM_1.case_x == ITEM_2.case_x:
         ITEM_2.generateItems()
     ITEM_3 = Items(my_maze)
     ITEM_3.generateItems()
-    while (ITEM_1.y_rand == ITEM_3.y_rand and ITEM_1.x_rand == ITEM_3.x_rand) \
-    or (ITEM_2.y_rand == ITEM_3.y_rand and ITEM_2.x_rand == ITEM_3.x_rand):
+    while (ITEM_1.case_y == ITEM_3.case_y and ITEM_1.case_x == ITEM_3.case_x) \
+    or (ITEM_2.case_y == ITEM_3.case_y and ITEM_2.case_x == ITEM_3.case_x):
         ITEM_3.generateItems()
     return(ITEM_1, ITEM_2, ITEM_3)
 
@@ -120,9 +120,9 @@ while PLAYING:
           MY_MAZE.display_maze(GAMEDISPLAY)
           GAMEDISPLAY.blit(MY_PLAYER.direction, (MY_PLAYER.x, MY_PLAYER.y)) #MY_PLAYER.direction = l'image dans la bonne direction
           # GAMEDISPLAY.blit(SILVER_MONEY, (x_rand * SPRITE_SIZE, y_rand * SPRITE_SIZE)) 
-          GAMEDISPLAY.blit(ITEM_1, (ITEM_1.x * SPRITE_SIZE, ITEM_1.y * SPRITE_SIZE))
-          GAMEDISPLAY.blit(ITEM_2, (ITEM_2.x * SPRITE_SIZE, ITEM_2.y * SPRITE_SIZE))
-          GAMEDISPLAY.blit(ITEM_3, (ITEM_3.x * SPRITE_SIZE, ITEM_3.y * SPRITE_SIZE))
+          GAMEDISPLAY.blit(ITEM_1, (ITEM_1.case_x * SPRITE_SIZE, ITEM_1.case_y * SPRITE_SIZE))
+          GAMEDISPLAY.blit(ITEM_2, (ITEM_2.case_x * SPRITE_SIZE, ITEM_2.case_y * SPRITE_SIZE))
+          GAMEDISPLAY.blit(ITEM_3, (ITEM_3.case_x * SPRITE_SIZE, ITEM_3.case_y * SPRITE_SIZE))
           PY.display.flip()
 
         if MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == "F" and item_count == 3:
