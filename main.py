@@ -54,18 +54,19 @@ while PLAYING:
 
     def display_items(my_maze):
         '''method for displaying items'''
+
         item_1 = Items(my_maze)
-        item_1.generate_tems()
+        item_1.generate_items()
         item_2 = Items(my_maze)
-        item_2.generate_tems()
+        item_2.generate_items()
 
         while item_1.case_y == item_2.case_y and item_1.case_x == item_2.case_x:
-            item_2.generate_tems()
+            item_2.generate_items()
         item_3 = Items(my_maze)
-        item_3.generate_tems()
+        item_3.generate_items()
         while (item_1.case_y == item_3.case_y and item_1.case_x == item_3.case_x) \
         or (item_2.case_y == item_3.case_y and item_2.case_x == item_3.case_x):
-            item_3.generate_tems()
+            item_3.generate_items()
         return(item_1, item_2, item_3)
 
     ITEM_1, ITEM_2, ITEM_3 = display_items(MY_MAZE.structure)
@@ -125,13 +126,6 @@ while PLAYING:
             GAMEDISPLAY.blit(WIN_SCREEN, (0, 0))
             PY.display.flip()
             PLAYING_GAME = 0
-            PLAYING_HOME = 1
         elif MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == 'a' and ITEM_COUNT != 3:
             GAMEDISPLAY.blit(LOST_SCREEN, (0, 0))
             PLAYING_GAME = 0
-            PLAYING_HOME = 1
-
-
-      #victory and game over screen
-      # if niveau.structure[MY_PLAYER.case_y][MY_PLAYER.case_x] == 'a':
-      #   PLAYING_GAME = 0

@@ -3,11 +3,13 @@ from constantes import *
 
 class Maze:
     '''maze class structure'''
+
     def __init__(self):
         self.structure = []
 
     def creation(self):
         '''load map and create maze'''
+
         with open('map.txt') as fichier:
             content = []
             #loop through lines in file
@@ -40,13 +42,13 @@ class Maze:
                 #real position in pixels
                 _x = num_case * SPRITE_SIZE
                 _y = num_ligne * SPRITE_SIZE
-                if sprite == "0":
+                if sprite == '0':
                     window.blit(background, (_x, _y))
-                elif sprite == "m":
+                elif sprite == 'm':
                     window.blit(walls, (_x, _y))
-                elif sprite == "d":
+                elif sprite == 'd':
                     window.blit(background, (_x, _y))
-                elif sprite == "a":
+                elif sprite == 'a':
                     window.blit(finishline, (_x, _y))
 
                 num_case += 1
@@ -108,6 +110,7 @@ class Character:
 
 class Items:
     '''class for generating items'''
+
     def __init__(self, content):
         self._x = 0
         self._y = 0
@@ -115,8 +118,9 @@ class Items:
         self.case_x = 0
         self.case_y = 0
 
-    def generate_tems(self):
+    def generate_items(self):
         '''method for generating items'''
+
         while self.my_maze[self.case_y][self.case_x] != '0':
             self.case_x = random.randint(0, 14)
             self.case_y = random.randint(0, 14)
