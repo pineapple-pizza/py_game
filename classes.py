@@ -2,127 +2,123 @@ import random
 from constantes import *
 
 class Maze:
+    '''maze class structure'''
     def __init__(self):
         self.structure = []
 
     def creation(self):
-
-      with open('map.txt') as fichier:
-        content = []
-        #On parcourt les lignes du fichier
-        for ligne in fichier:
-          file_sprites = []
-          #On parcourt les sprites (lettres) contenus dans le fichier
-          for sprite in ligne:
-            #On ignore les "\n" de fin de ligne
-            if sprite != '\n':
-              #On ajoute le sprite à la liste de la ligne
-              file_sprites.append(sprite)
-          #On ajoute la ligne à la liste du niveau
-          content.append(file_sprites)
-        #On sauvegarde cette structure
-        self.structure = content
+        '''load map and create maze'''
+        with open('map.txt') as fichier:
+            content = []
+            #loop through lines in file
+            for ligne in fichier:
+                file_sprites = []
+                #loop through sprites (letters) in file
+                for sprite in ligne:
+                  #ignore '\n'
+                    if sprite != '\n':
+                        #add sprite to line list
+                        file_sprites.append(sprite)
+                #add line to level list
+                content.append(file_sprites)
+            #save structure
+            self.structure = content
 
     def display_maze(self, window):
-        """Méthode permettant d'afficher le niveau en fonction 
-        de la liste de structure renvoyée par generer()"""
+        '''method for displaying maze from creation()'''
 
-        BACKGROUND = PY.image.load(FLOOR).convert()
-        FINISHLINE = PY.image.load(ICON_GUARDIAN).convert()
-        WALLS = PY.image.load(WALL).convert()
+        background = PY.image.load(FLOOR).convert()
+        finishline = PY.image.load(ICON_GUARDIAN).convert()
+        walls = PY.image.load(WALL).convert()
 
-        #On parcourt la liste du niveau
+        #check list level
         num_ligne = 0
         for ligne in self.structure:
-            #On parcourt les listes de lignes
+            #Oloop through list of lines
             num_case = 0
             for sprite in ligne:
-                #On calcule la position réelle en pixels
-                x = num_case * SPRITE_SIZE
-                y = num_ligne * SPRITE_SIZE
+                #real position in pixels
+                _x = num_case * SPRITE_SIZE
+                _y = num_ligne * SPRITE_SIZE
                 if sprite == "0":
-                    window.blit(BACKGROUND, (x, y))
+                    window.blit(background, (_x, _y))
                 elif sprite == "m":
-                    window.blit(WALLS, (x, y))
+                    window.blit(walls, (_x, _y))
                 elif sprite == "d":
-                    window.blit(BACKGROUND, (x, y))
+                    window.blit(background, (_x, _y))
                 elif sprite == "a":
-                    window.blit(FINISHLINE, (x, y))
+                    window.blit(finishline, (_x, _y))
 
                 num_case += 1
             num_ligne += 1
 
 class Character:
-    """Classe permettant de créer un personnage"""
+    '''class for character creation'''
     def __init__(self, my_maze):
-        #Sprites du personnage
+        #character sprites
         self.character = PY.image.load(ICON_MACGYVER).convert_alpha()
-        #Position du personnage en cases et en pixels
+        #character position in cases and pixels
         self.case_x = 0
         self.case_y = 0
-        self.x = 0
-        self.y = 0
-        #Direction par défaut
+        self._x = 0
+        self._y = 0
+        #default image direction
         self.direction = self.character
         self.my_maze = my_maze
 
     def deplacer(self, direction):
-        """Methode permettant de déplacer le personnage"""
-        
-        #Déplacement vers la right
+        '''method for moving character'''
+
+        #move to the right
         if direction == 'right':
-          #Pour ne pas dépasser l'écran
-          if self.case_x < (SIDE_SPRITE_NUM - 1):
-            #On vérifie que la case de destination n'est pas un mur
-            if self.my_maze[self.case_y][self.case_x+1] != 'm':
-              #Déplacement d'une case
-              self.case_x += 1
-              #Calcul de la position "réelle" en pixel
-              self.x = self.case_x * SPRITE_SIZE
-          #Image dans la bonne direction
-          self.direction = self.character
-        
-        #Déplacement vers la left
+          #to not get off screen
+            if self.case_x < (SIDE_SPRITE_NUM - 1):
+              #to check collision with walls
+                if self.my_maze[self.case_y][self.case_x + 1] != 'm':
+                    #move a sprite
+                    self.case_x += 1
+                    #real position with pixels
+                    self._x = self.case_x * SPRITE_SIZE
+            #control image side
+            self.direction = self.character
+
+        #move to the left
         if direction == 'left':
-          if self.case_x > 0:
-            if self.my_maze[self.case_y][self.case_x-1] != 'm':
-              self.case_x -= 1
-              self.x = self.case_x * SPRITE_SIZE
-          self.direction = self.character
-        
-        #Déplacement vers le up
+            if self.case_x > 0:
+                if self.my_maze[self.case_y][self.case_x - 1] != 'm':
+                    self.case_x -= 1
+                    self._x = self.case_x * SPRITE_SIZE
+            self.direction = self.character
+
+        #move up
         if direction == 'up':
-          if self.case_y > 0:
-            if self.my_maze[self.case_y-1][self.case_x] != 'm':
-              self.case_y -= 1
-              self.y = self.case_y * SPRITE_SIZE
-          self.direction = self.character
-        
-        #Déplacement vers le down
+            if self.case_y > 0:
+                if self.my_maze[self.case_y-1][self.case_x] != 'm':
+                    self.case_y -= 1
+                    self._y = self.case_y * SPRITE_SIZE
+            self.direction = self.character
+
+        #move down
         if direction == 'down':
-          if self.case_y < (SIDE_SPRITE_NUM - 1):
-            if self.my_maze[self.case_y+1][self.case_x] != 'm':
-              self.case_y += 1
-              self.y = self.case_y * SPRITE_SIZE
-          self.direction = self.character
+            if self.case_y < (SIDE_SPRITE_NUM - 1):
+                if self.my_maze[self.case_y+1][self.case_x] != 'm':
+                    self.case_y += 1
+                    self._y = self.case_y * SPRITE_SIZE
+            self.direction = self.character
 
 class Items:
-    """Classe générer les items"""
+    '''class for generating items'''
     def __init__(self, content):
-      # self.items = []
-      self.x = 0
-      self.y = 0
-      # self.position = 0
-      self.my_maze = content
-      self.case_x = 0
-      self.case_y = 0
+        self._x = 0
+        self._y = 0
+        self.my_maze = content
+        self.case_x = 0
+        self.case_y = 0
 
-    def generateItems(self):
-      while self.my_maze[self.case_y][self.case_x] != 'm':
+    def generate_tems(self):
+        '''method for generating items'''
+        while self.my_maze[self.case_y][self.case_x] != '0':
             self.case_x = random.randint(0, 14)
             self.case_y = random.randint(0, 14)
-      self.x = self.case_x * SPRITE_SIZE
-      self.y = self.case_y * SPRITE_SIZE
-
-
-# PLACER LES OBJETS DE FACON FIXE D'ABORD ET CHANGER / COMPLEXIFIER LES FONCTIONS ENSUITE
+        self._x = self.case_x * SPRITE_SIZE
+        self._y = self.case_y * SPRITE_SIZE
