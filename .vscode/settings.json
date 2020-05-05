@@ -1,0 +1,6 @@
+{
+  "python.pythonPath": "/Users/anna/Documents/OPENCLASSROOM/project_3/macgyver/bin/python3",
+  "python.linting.pylintArgs": [
+    "--extension-pkg-whitelist=pygame"  // The extension is "lxml" not "1xml"
+]
+}
