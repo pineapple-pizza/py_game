@@ -13,12 +13,13 @@ LOOT_MONEY = PY.image.load(MONEY).convert()
 WIN_SCREEN = PY.image.load(WIN).convert()
 LOST_SCREEN = PY.image.load(GAME_OVER).convert()
 
+#load and display home screen
+HOME = PY.image.load(HOME_PAGE).convert()
+GAMEDISPLAY.blit(HOME, (0, 0))
+
 #main loop
 PLAYING = 1
 while PLAYING:
-    #load and display home screen
-    HOME = PY.image.load(HOME_PAGE).convert()
-    GAMEDISPLAY.blit(HOME, (0, 0))
 
     #refresh
     PY.display.flip()
@@ -122,15 +123,11 @@ while PLAYING:
             GAMEDISPLAY.blit(LOOT_MONEY, (ITEM_3.case_x * SPRITE_SIZE, ITEM_3.case_y * SPRITE_SIZE))
             PY.display.flip()
 
-        if MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == 'a' and ITEM_COUNT == 3:
-            #loop speed limit
-            PY.time.Clock().tick(1000)
-            GAMEDISPLAY.blit(WIN_SCREEN, (0, 0))
-            PY.display.flip()
-            PLAYING_GAME = 0
-        elif MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == 'a' and ITEM_COUNT != 3:
-            GAMEDISPLAY.blit(LOST_SCREEN, (0, 0))
-            PY.display.update()
-            PLAYING_GAME = 0
-            #loop speed limit
-            # PY.time.Clock().tick(1000)
+            if MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == 'a' and ITEM_COUNT == 3:
+                GAMEDISPLAY.blit(WIN_SCREEN, (0, 0))
+                PY.display.flip()
+                PLAYING_GAME = 0
+            elif MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == 'a' and ITEM_COUNT != 3:
+                GAMEDISPLAY.blit(LOST_SCREEN, (0, 0))
+                PY.display.update()
+                PLAYING_GAME = 0
