@@ -29,9 +29,9 @@ class Maze:
     def display_maze(self, window):
         '''method for displaying maze from creation()'''
 
-        background = PY.image.load(FLOOR).convert()
-        finishline = PY.image.load(ICON_GUARDIAN).convert()
-        walls = PY.image.load(WALL).convert()
+        background = py.image.load(FLOOR).convert()
+        finishline = py.image.load(ICON_GUARDIAN).convert()
+        walls = py.image.load(WALL).convert()
 
         #check list level
         num_ligne = 0
@@ -58,7 +58,7 @@ class Character:
     '''class for character creation'''
     def __init__(self, my_maze):
         #character sprites
-        self.character = PY.image.load(ICON_MACGYVER).convert_alpha()
+        self.character = py.image.load(ICON_MACGYVER).convert_alpha()
         #character position in cases and pixels
         self.case_x = 0
         self.case_y = 0

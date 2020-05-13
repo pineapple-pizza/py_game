@@ -4,7 +4,7 @@ class Character:
     '''class for character creation'''
     def __init__(self, my_maze):
         #character sprites
-        self.character = PY.image.load(ICON_MACGYVER).convert_alpha()
+        self.character = py.image.load(ICON_MACGYVER).convert_alpha()
         #character position in cases and pixels
         self.case_x = 0
         self.case_y = 0

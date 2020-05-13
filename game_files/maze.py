@@ -28,9 +28,9 @@ class Maze:
     def display_maze(self, window):
         '''method for displaying maze from creation()'''
 
-        background = PY.image.load(FLOOR).convert()
-        finishline = PY.image.load(ICON_GUARDIAN).convert()
-        walls = PY.image.load(WALL).convert()
+        background = py.image.load(FLOOR).convert()
+        finishline = py.image.load(ICON_GUARDIAN).convert()
+        walls = py.image.load(WALL).convert()
 
         #check list level
         num_ligne = 0
