@@ -1,53 +1,53 @@
 from constantes import *
 from classes import *
 
-PY.init()
-CLOCK = PY.time.Clock()
-GAMEDISPLAY = PY.display.set_mode((SIDE_WINDOW, SIZE_WINDOW))
-PY.display.set_caption(WIN_TITLE)
+py.init()
+CLOCK = py.time.Clock()
+GAMEDISPLAY = py.display.set_mode((SIDE_WINDOW, SIZE_WINDOW))
+py.display.set_caption(WIN_TITLE)
 
-SILVER = PY.image.load(SILVER).convert()
-GOLD_MONEY = PY.image.load(GOLD).convert()
-LOOT_MONEY = PY.image.load(MONEY).convert()
+SILVER = py.image.load(SILVER).convert()
+GOLD_MONEY = py.image.load(GOLD).convert()
+LOOT_MONEY = py.image.load(MONEY).convert()
 
-WIN_SCREEN = PY.image.load(WIN).convert()
-LOST_SCREEN = PY.image.load(GAME_OVER).convert()
+WIN_SCREEN = py.image.load(WIN).convert()
+LOST_SCREEN = py.image.load(GAME_OVER).convert()
 
 #load and display home screen
-HOME = PY.image.load(HOME_PAGE).convert()
+HOME = py.image.load(HOME_PAGE).convert()
 GAMEDISPLAY.blit(HOME, (0, 0))
 
 #main loop
-PLAYING = 1
-while PLAYING:
+playing = 1
+while playing:
 
     #refresh
-    PY.display.flip()
+    py.display.flip()
 
     #reset variables to 1 after loop is complete
-    PLAYING_GAME = 1
-    PLAYING_HOME = 1
+    playing_game = 1
+    playing_home = 1
 
     #home screen
-    while PLAYING_HOME:
+    while playing_home:
         #loop speed limit
-        PY.time.Clock().tick(30)
+        py.time.Clock().tick(30)
 
-        for event in PY.event.get():
+        for event in py.event.get():
 
             #if user quits, reset var to 0 and close
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-                PLAYING_HOME = 0
-                PLAYING_GAME = 0
-                PLAYING = 0
+                playing_home = 0
+                playing_game = 0
+                playing = 0
                 #var choice of level
                 #choice = 0
 
             elif event.type == KEYDOWN:
                 if event.key == K_SPACE:
-                    PLAYING_HOME = 0
-                    PLAYING_GAME = 1
-                    PY.display.flip()
+                    playing_home = 0
+                    playing_game = 1
+                    py.display.flip()
 
     MY_MAZE = Maze()
     MY_MAZE.creation()
@@ -74,23 +74,23 @@ while PLAYING:
     ITEM_COUNT = 0
 
     #GAME LOOP
-    while PLAYING_GAME:
+    while playing_game:
 
         #loop speed limit
-        PY.time.Clock().tick(30)
+        py.time.Clock().tick(30)
 
-        for event in PY.event.get():
+        for event in py.event.get():
 
-            #if user quits, reset var of PLAYING and PLAYING_GAME to 0 to close window
+            #if user quits, reset var of playing and playing_game to 0 to close window
             if event.type == QUIT:
-                PLAYING_GAME = 0
-                PLAYING = 0
+                playing_game = 0
+                playing = 0
 
             elif event.type == KEYDOWN:
                 #if user presses esc, go back to menu
                 if event.key == K_ESCAPE:
-                    PLAYING_GAME = 0
-                    PLAYING = 0
+                    playing_game = 0
+                    playing = 0
 
                 #movements of the character
                 elif event.key == K_RIGHT:
@@ -121,13 +121,13 @@ while PLAYING:
             GAMEDISPLAY.blit(SILVER, (ITEM_1.case_x * SPRITE_SIZE, ITEM_1.case_y * SPRITE_SIZE))
             GAMEDISPLAY.blit(GOLD_MONEY, (ITEM_2.case_x * SPRITE_SIZE, ITEM_2.case_y * SPRITE_SIZE))
             GAMEDISPLAY.blit(LOOT_MONEY, (ITEM_3.case_x * SPRITE_SIZE, ITEM_3.case_y * SPRITE_SIZE))
-            PY.display.flip()
+            py.display.flip()
 
             if MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == 'a' and ITEM_COUNT == 3:
                 GAMEDISPLAY.blit(WIN_SCREEN, (0, 0))
-                PY.display.flip()
-                PLAYING_GAME = 0
+                py.display.flip()
+                playing_game = 0
             elif MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == 'a' and ITEM_COUNT != 3:
                 GAMEDISPLAY.blit(LOST_SCREEN, (0, 0))
-                PY.display.update()
-                PLAYING_GAME = 0
+                py.display.update()
+                playing_game = 0
