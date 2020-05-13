@@ -9,7 +9,7 @@ class Maze:
     def creation(self):
         '''load map and create maze'''
 
-        with open('map.txt') as fichier:
+        with open('game_files/map.txt') as fichier:
             content = []
             #loop through lines in file
             for ligne in fichier:
