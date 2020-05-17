@@ -1,133 +1,140 @@
-from constantes import *
-from classes import *
+from game_files.const import *
+from game_files.character import Character
+from game_files.items import Items
+from game_files.maze import Maze
 
 py.init()
-CLOCK = py.time.Clock()
-GAMEDISPLAY = py.display.set_mode((SIDE_WINDOW, SIZE_WINDOW))
+clock = py.time.Clock()
+gamedisplay = py.display.set_mode((SIDE_WINDOW, SIZE_WINDOW))
 py.display.set_caption(WIN_TITLE)
 
-SILVER = py.image.load(SILVER).convert()
-GOLD_MONEY = py.image.load(GOLD).convert()
-LOOT_MONEY = py.image.load(MONEY).convert()
+silver = py.image.load(SILVER).convert()
+gold_money = py.image.load(GOLD).convert()
+loot_money = py.image.load(MONEY).convert()
 
-WIN_SCREEN = py.image.load(WIN).convert()
-LOST_SCREEN = py.image.load(GAME_OVER).convert()
+win_screen = py.image.load(WIN).convert()
+lost_screen = py.image.load(GAME_OVER).convert()
 
 #load and display home screen
-HOME = py.image.load(HOME_PAGE).convert()
-GAMEDISPLAY.blit(HOME, (0, 0))
+home = py.image.load(HOME_PAGE).convert()
+gamedisplay.blit(home, (0, 0))
 
-#main loop
-playing = 1
-while playing:
+def main():
 
-    #refresh
-    py.display.flip()
+  #main loop
+  playing = 1
+  while playing:
 
-    #reset variables to 1 after loop is complete
-    playing_game = 1
-    playing_home = 1
+      #refresh
+      py.display.flip()
 
-    #home screen
-    while playing_home:
-        #loop speed limit
-        py.time.Clock().tick(30)
+      #reset variables to 1 after loop is complete
+      playing_game = 1
+      playing_home = 1
 
-        for event in py.event.get():
+      #home screen
+      while playing_home:
+          #loop speed limit
+          py.time.Clock().tick(30)
 
-            #if user quits, reset var to 0 and close
-            if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-                playing_home = 0
-                playing_game = 0
-                playing = 0
-                #var choice of level
-                #choice = 0
+          for event in py.event.get():
 
-            elif event.type == KEYDOWN:
-                if event.key == K_SPACE:
-                    playing_home = 0
-                    playing_game = 1
-                    py.display.flip()
+              #if user quits, reset var to 0 and close
+              if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
+                  playing_home = 0
+                  playing_game = 0
+                  playing = 0
+                  #var choice of level
+                  #choice = 0
 
-    MY_MAZE = Maze()
-    MY_MAZE.creation()
-    MY_PLAYER = Character(MY_MAZE.structure)
+              elif event.type == KEYDOWN:
+                  if event.key == K_SPACE:
+                      playing_home = 0
+                      playing_game = 1
+                      py.display.flip()
 
-    def display_items(my_maze):
-        '''method for displaying items'''
+      MY_MAZE = Maze()
+      MY_MAZE.creation()
+      my_player = Character(MY_MAZE.structure)
 
-        item_1 = Items(my_maze)
-        item_1.generate_items()
-        item_2 = Items(my_maze)
-        item_2.generate_items()
+      def display_items(my_maze):
+          '''method for displaying items'''
 
-        while item_1.case_y == item_2.case_y and item_1.case_x == item_2.case_x:
-            item_2.generate_items()
-        item_3 = Items(my_maze)
-        item_3.generate_items()
-        while (item_1.case_y == item_3.case_y and item_1.case_x == item_3.case_x) \
-        or (item_2.case_y == item_3.case_y and item_2.case_x == item_3.case_x):
-            item_3.generate_items()
-        return(item_1, item_2, item_3)
+          item_1 = Items(my_maze)
+          item_1.generate_items()
+          item_2 = Items(my_maze)
+          item_2.generate_items()
 
-    ITEM_1, ITEM_2, ITEM_3 = display_items(MY_MAZE.structure)
-    ITEM_COUNT = 0
+          while item_1.case_y == item_2.case_y and item_1.case_x == item_2.case_x:
+              item_2.generate_items()
+          item_3 = Items(my_maze)
+          item_3.generate_items()
+          while (item_1.case_y == item_3.case_y and item_1.case_x == item_3.case_x) \
+          or (item_2.case_y == item_3.case_y and item_2.case_x == item_3.case_x):
+              item_3.generate_items()
+          return(item_1, item_2, item_3)
 
-    #GAME LOOP
-    while playing_game:
+      item_1, item_2, item_3 = display_items(MY_MAZE.structure)
+      item_count = 0
 
-        #loop speed limit
-        py.time.Clock().tick(30)
+      #GAME LOOP
+      while playing_game:
 
-        for event in py.event.get():
+          #loop speed limit
+          py.time.Clock().tick(30)
 
-            #if user quits, reset var of playing and playing_game to 0 to close window
-            if event.type == QUIT:
-                playing_game = 0
-                playing = 0
+          for event in py.event.get():
 
-            elif event.type == KEYDOWN:
-                #if user presses esc, go back to menu
-                if event.key == K_ESCAPE:
-                    playing_game = 0
-                    playing = 0
+              #if user quits, reset var of playing and playing_game to 0 to close window
+              if event.type == QUIT:
+                  playing_game = 0
+                  playing = 0
 
-                #movements of the character
-                elif event.key == K_RIGHT:
-                    MY_PLAYER.deplacer('right')
-                elif event.key == K_LEFT:
-                    MY_PLAYER.deplacer('left')
-                elif event.key == K_UP:
-                    MY_PLAYER.deplacer('up')
-                elif event.key == K_DOWN:
-                    MY_PLAYER.deplacer('down')
+              elif event.type == KEYDOWN:
+                  #if user presses esc, go back to menu
+                  if event.key == K_ESCAPE:
+                      playing_game = 0
+                      playing = 0
 
-            if MY_PLAYER.case_x == ITEM_1.case_x and MY_PLAYER.case_y == ITEM_1.case_y:
-                ITEM_1.case_x = 0
-                ITEM_1.case_y = 15
-                ITEM_COUNT += 1
-            if MY_PLAYER.case_x == ITEM_2.case_x and MY_PLAYER.case_y == ITEM_2.case_y:
-                ITEM_2.case_x = 1
-                ITEM_2.case_y = 15
-                ITEM_COUNT += 1
-            if MY_PLAYER.case_x == ITEM_3.case_x and MY_PLAYER.case_y == ITEM_3.case_y:
-                ITEM_3.case_x = 2
-                ITEM_3.case_y = 15
-                ITEM_COUNT += 1
+                  #movements of the character
+                  elif event.key == K_RIGHT:
+                      my_player.deplacer('right')
+                  elif event.key == K_LEFT:
+                      my_player.deplacer('left')
+                  elif event.key == K_UP:
+                      my_player.deplacer('up')
+                  elif event.key == K_DOWN:
+                      my_player.deplacer('down')
 
-            #displaying new positions
-            MY_MAZE.display_maze(GAMEDISPLAY)
-            GAMEDISPLAY.blit(MY_PLAYER.direction, (MY_PLAYER._x, MY_PLAYER._y))
-            GAMEDISPLAY.blit(SILVER, (ITEM_1.case_x * SPRITE_SIZE, ITEM_1.case_y * SPRITE_SIZE))
-            GAMEDISPLAY.blit(GOLD_MONEY, (ITEM_2.case_x * SPRITE_SIZE, ITEM_2.case_y * SPRITE_SIZE))
-            GAMEDISPLAY.blit(LOOT_MONEY, (ITEM_3.case_x * SPRITE_SIZE, ITEM_3.case_y * SPRITE_SIZE))
-            py.display.flip()
+              if my_player.case_x == item_1.case_x and my_player.case_y == item_1.case_y:
+                  item_1.case_x = 0
+                  item_1.case_y = 15
+                  item_count += 1
+              if my_player.case_x == item_2.case_x and my_player.case_y == item_2.case_y:
+                  item_2.case_x = 1
+                  item_2.case_y = 15
+                  item_count += 1
+              if my_player.case_x == item_3.case_x and my_player.case_y == item_3.case_y:
+                  item_3.case_x = 2
+                  item_3.case_y = 15
+                  item_count += 1
 
-            if MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == 'a' and ITEM_COUNT == 3:
-                GAMEDISPLAY.blit(WIN_SCREEN, (0, 0))
-                py.display.flip()
-                playing_game = 0
-            elif MY_MAZE.structure[MY_PLAYER.case_x][MY_PLAYER.case_y] == 'a' and ITEM_COUNT != 3:
-                GAMEDISPLAY.blit(LOST_SCREEN, (0, 0))
-                py.display.update()
-                playing_game = 0
+              #displaying new positions
+              MY_MAZE.display_maze(gamedisplay)
+              gamedisplay.blit(my_player.direction, (my_player._x, my_player._y))
+              gamedisplay.blit(silver, (item_1.case_x * SPRITE_SIZE, item_1.case_y * SPRITE_SIZE))
+              gamedisplay.blit(gold_money, (item_2.case_x * SPRITE_SIZE, item_2.case_y * SPRITE_SIZE))
+              gamedisplay.blit(loot_money, (item_3.case_x * SPRITE_SIZE, item_3.case_y * SPRITE_SIZE))
+              py.display.flip()
+
+              if MY_MAZE.structure[my_player.case_x][my_player.case_y] == 'a' and item_count == 3:
+                  gamedisplay.blit(win_screen, (0, 0))
+                  py.display.flip()
+                  playing_game = 0
+              elif MY_MAZE.structure[my_player.case_x][my_player.case_y] == 'a' and item_count != 3:
+                  gamedisplay.blit(lost_screen, (0, 0))
+                  py.display.update()
+                  playing_game = 0
+
+if __name__ == '__main__':
+    main()
