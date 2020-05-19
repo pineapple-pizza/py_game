@@ -109,15 +109,15 @@ def main():
 
             if my_player.case_x == item_1.case_x and my_player.case_y == item_1.case_y:
                 item_1.case_x = 0
-                item_1.case_y = 15
+                item_1.case_y = SPRITE_WIDTH
                 item_count += 1
             if my_player.case_x == item_2.case_x and my_player.case_y == item_2.case_y:
                 item_2.case_x = 1
-                item_2.case_y = 15
+                item_2.case_y = SPRITE_WIDTH
                 item_count += 1
             if my_player.case_x == item_3.case_x and my_player.case_y == item_3.case_y:
                 item_3.case_x = 2
-                item_3.case_y = 15
+                item_3.case_y = SPRITE_WIDTH
                 item_count += 1
 
             #displaying new positions
