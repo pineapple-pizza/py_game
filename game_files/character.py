@@ -1,4 +1,4 @@
-from constantes import *
+from game_files.const import *
 
 class Character:
     '''class for character creation'''

@@ -1,5 +1,5 @@
 import random
-from constantes import *
+from game_files.const import *
 
 class Items:
     '''class for generating items'''
