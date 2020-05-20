@@ -13,11 +13,12 @@ FLOOR = 'ressource/floor.png'
 
 #OBJECTS
 GOLD = 'ressource/gold.png'
-SILVER = 'ressource/silver.png'
-MONEY = 'ressource/golds.png'
+BOOK = 'ressource/book.png'
+SHOES = 'ressource/shoes.png'
 
 #WINDOW PARAM
 SIDE_SPRITE_NUM = 15
+SPRITE_WIDTH = 15
 HEIGHT_SPRITE_NUM = 16
 SPRITE_SIZE = 30
 SIDE_WINDOW = SIDE_SPRITE_NUM * SPRITE_SIZE

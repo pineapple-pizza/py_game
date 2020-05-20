@@ -8,9 +8,9 @@ clock = py.time.Clock()
 gamedisplay = py.display.set_mode((SIDE_WINDOW, SIZE_WINDOW))
 py.display.set_caption(WIN_TITLE)
 
-silver = py.image.load(SILVER).convert()
+book_item = py.image.load(BOOK).convert()
 gold_money = py.image.load(GOLD).convert()
-loot_money = py.image.load(MONEY).convert()
+shoes_item = py.image.load(SHOES).convert()
 
 win_screen = py.image.load(WIN).convert()
 lost_screen = py.image.load(GAME_OVER).convert()
@@ -23,7 +23,7 @@ def main():
 
   #main loop
   playing = 1
-  item_count = 0
+#   item_count = 0
   while playing:
 
       #refresh
@@ -76,7 +76,7 @@ def main():
           return(item_1, item_2, item_3)
 
       item_1, item_2, item_3 = display_items(MY_MAZE.structure)
-    #   item_count = 0
+      item_count = 0
 
       #GAME LOOP
       while playing_game:
@@ -109,34 +109,32 @@ def main():
 
             if my_player.case_x == item_1.case_x and my_player.case_y == item_1.case_y:
                 item_1.case_x = 0
-                item_1.case_y = 15
+                item_1.case_y = SPRITE_WIDTH
                 item_count += 1
             if my_player.case_x == item_2.case_x and my_player.case_y == item_2.case_y:
                 item_2.case_x = 1
-                item_2.case_y = 15
+                item_2.case_y = SPRITE_WIDTH
                 item_count += 1
             if my_player.case_x == item_3.case_x and my_player.case_y == item_3.case_y:
                 item_3.case_x = 2
-                item_3.case_y = 15
+                item_3.case_y = SPRITE_WIDTH
                 item_count += 1
 
             #displaying new positions
             MY_MAZE.display_maze(gamedisplay)
             gamedisplay.blit(my_player.direction, (my_player._x, my_player._y))
-            gamedisplay.blit(silver, (item_1.case_x * SPRITE_SIZE, item_1.case_y * SPRITE_SIZE))
+            gamedisplay.blit(book_item, (item_1.case_x * SPRITE_SIZE, item_1.case_y * SPRITE_SIZE))
             gamedisplay.blit(gold_money, (item_2.case_x * SPRITE_SIZE, item_2.case_y * SPRITE_SIZE))
-            gamedisplay.blit(loot_money, (item_3.case_x * SPRITE_SIZE, item_3.case_y * SPRITE_SIZE))
+            gamedisplay.blit(shoes_item, (item_3.case_x * SPRITE_SIZE, item_3.case_y * SPRITE_SIZE))
             py.display.flip()
 
             if MY_MAZE.structure[my_player.case_x][my_player.case_y] == 'a' and item_count == 3:
                 gamedisplay.blit(win_screen, (0, 0))
                 py.display.flip()
                 playing_game = 0
-                playing_home = 1
             elif MY_MAZE.structure[my_player.case_x][my_player.case_y] == 'a' and item_count != 3:
                 gamedisplay.blit(lost_screen, (0, 0))
                 playing_game = 0
-                playing_home = 1
 
 if __name__ == '__main__':
     main()
