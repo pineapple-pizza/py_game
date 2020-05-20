@@ -13,8 +13,8 @@ FLOOR = 'ressource/floor.png'
 
 #OBJECTS
 GOLD = 'ressource/gold.png'
-SILVER = 'ressource/silver.png'
-MONEY = 'ressource/golds.png'
+BOOK = 'ressource/book.png'
+SHOES = 'ressource/shoes.png'
 
 #WINDOW PARAM
 SIDE_SPRITE_NUM = 15
