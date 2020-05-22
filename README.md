@@ -1,14 +1,12 @@
 # py_game
-- Le candidat a organisé son projet en packages et en modules avec des noms qui décrivent la structure du programme. (FAIT)
+Étant un grand fan de Richard Dean Anderson, vous imaginez un labyrinthe 2D dans lequel MacGyver aurait été enfermé. La sortie est surveillée par un garde du corps dont la coiffure ferait pâlir Tina Turner. Pour le distraire, il vous faut réunir les éléments suivants (dispersés dans le labyrinthe) : une aiguille, un petit tube en plastique et de l'éther. Ils permettront à MacGyver de créer une seringue et d'endormir notre garde.
 
-- Le candidat a défini une fonction main() comme point d’entrée de son application. (FAIT)
+- git clone
 
-- Le candidat a utilisé des imports explicites pour connecter ensemble les différents modules de son application. (FAIT)
+#virtualenv
+- pip3 install virtualenv
+- python3 -m venv env
+- pip3 install -r requirements.txt
 
-- Le candidat a conçu un algorithme respectant les bonnes pratiques PEP8 permettant de lire et d’interpréter la structure du labyrinthe décrite sous forme textuelle dans un fichier. (FAIT)
-
-- Les classes gérant la logique du jeu sont séparées des classes gérant l’affichage (textuel ou graphique). 
-
-- Les classes sont organisées en modules selon une logique thématique qui fait du sens (pas de classes.py!) (FAIT)
-
-- Le code présenté sur Github ou Gitlab à l’aide d’un fichier README. (PLUS TARD)
+#launch game
+- python3 main.py 
